@@ -7,7 +7,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ openModal }) => {
   return (
-    <section className="hero-section relative w-full h-[100vh] flex items-center bg-bgMain overflow-hidden">
+    <section className="hero-section relative w-full h-[100vh] min-h-[600px] flex items-center bg-bgMain overflow-hidden">
       {/* Background with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center z-0"
@@ -16,22 +16,16 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
         <div className="absolute inset-0 bg-heroOverlay backdrop-blur-[2px]" />
       </div>
 
-      {/* Main Container */}
+      {/* Main Container - Standardized to 1200px center */}
       <div className="
         relative w-full h-full 
         flex flex-col min-[1000px]:flex-row min-[1000px]:items-center
-        
-        /* Mobile styles (<1000px) - preserved max-w and padding */
-        max-w-[1200px] mx-auto px-4 
-        
-        /* Desktop styles (>1000px) - adaptive padding, full width, no max-w constraint */
-        min-[1000px]:max-w-none min-[1000px]:mx-0 min-[1000px]:px-0 
-        min-[1000px]:pl-[10vw] min-[1000px]:pr-[5vw]
+        max-w-[1200px] mx-auto px-4 lg:px-6
       ">
         
         {/* 
            TEXT CONTENT (.hero-content)
-           z-index: 10 (to stay above image)
+           z-index: 10
         */}
         <div className="
           hero-content
@@ -41,10 +35,7 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           min-[1000px]:items-start min-[1000px]:text-left
           w-full 
           pt-[12vh] min-[1000px]:pt-0
-          
-          /* Desktop: increased max-width for readability */
-          min-[1000px]:w-full
-          min-[1000px]:max-w-[750px]
+          min-[1000px]:w-3/5
         ">
            <span 
              className="inline-block py-1 px-3 rounded-full bg-white/60 border border-white/50 backdrop-blur-sm text-textMuted uppercase font-medium shadow-sm tracking-wider"
@@ -94,8 +85,7 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
 
         {/* 
            IMAGE WRAPPER (.hero-image)
-           z-index: 5 (below text)
-           Desktop: absolute bottom-0 right-0
+           z-index: 5 
         */}
         <div className="
           hero-image
@@ -107,8 +97,8 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           min-[1000px]:absolute 
           min-[1000px]:bottom-0 
           min-[1000px]:right-0 
-          min-[1000px]:w-auto 
-          min-[1000px]:h-[85vh] 
+          min-[1000px]:w-2/5
+          min-[1000px]:h-[90vh] 
           min-[1000px]:mt-0
           min-[1000px]:z-[5]
           pointer-events-none
@@ -121,6 +111,7 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
                h-[50vh] 
                w-auto
                min-[1000px]:h-full
+               min-[1000px]:object-bottom
             "
            />
         </div>
