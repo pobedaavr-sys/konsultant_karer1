@@ -6,6 +6,16 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ openModal }) => {
+  const handleScrollToCTA = () => {
+      const element = document.getElementById('cta-section');
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      }
+  };
+
   return (
     <section className="hero-section relative w-full h-[100vh] min-h-[600px] flex items-center bg-bgMain overflow-hidden">
       {/* Background with Overlay */}
@@ -40,7 +50,9 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
            <span 
              className="inline-block py-1 px-3 rounded-full bg-white/60 border border-white/50 backdrop-blur-sm text-textMuted uppercase font-medium shadow-sm tracking-wider"
              style={{ 
-               fontSize: 'clamp(10px, 0.8vw, 14px)',
+               // ВОТ ЗДЕСЬ РАЗМЕР ШРИФТА (маленькая плашка сверху)
+               fontSize: 'clamp(10px, 0.8vw, 12px)',
+               // ВОТ ЗДЕСЬ меняется отступ от "карьерный консультант" до ЗАГОЛОВКА
                marginBottom: 'clamp(20px, 3vh, 40px)'
              }}
            >
@@ -50,7 +62,10 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           <h1 
             className="font-bold text-textMain tracking-tight leading-[1.1]"
             style={{ 
-              fontSize: 'clamp(32px, 4.5vw, 72px)', 
+              // ВОТ ЗДЕСЬ РАЗМЕР ШРИФТА ЗАГОЛОВКА
+              // Было clamp(32px, 4.5vw, 72px), я уменьшил до clamp(28px, 4vw, 56px)
+              fontSize: 'clamp(28px, 4vw, 56px)', 
+              // ВОТ ЗДЕСЬ меняется отступ от ЗАГОЛОВКА до описания
               marginBottom: 'clamp(24px, 4vh, 48px)' 
             }}
           >
@@ -59,9 +74,15 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           </h1>
           
           <p 
-            className="text-textMuted leading-relaxed max-w-xl"
+            // ИЗМЕНЕНИЯ ЗДЕСЬ:
+            // 1. min-[1000px]:whitespace-nowrap -> запрещает перенос строк на десктопе
+            // 2. min-[1000px]:max-w-none -> убирает ограничение ширины, чтобы текст влез в одну строку
+            className="text-textMuted leading-relaxed max-w-xl min-[1000px]:max-w-none min-[1000px]:whitespace-nowrap"
             style={{ 
-              fontSize: 'clamp(16px, 1.2vw, 20px)',
+              // ВОТ ЗДЕСЬ РАЗМЕР ШРИФТА ОПИСАНИЯ
+              // clamp позволяет шрифту уменьшаться, если экран сужается, чтобы строка влезала
+              fontSize: 'clamp(14px, 1.1vw, 18px)',
+              // ВОТ ЗДЕСЬ меняется отступ от ОПИСАНИЯ до кнопки
               marginBottom: 'clamp(32px, 6vh, 64px)' 
             }}
           >
@@ -71,7 +92,8 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center min-[1000px]:justify-start">
             <Button 
               text="ЗАПИСАТЬСЯ" 
-              onDesktopClick={openModal} 
+              href="#cta-section"
+              onClick={handleScrollToCTA}
               className="!uppercase shadow-xl hero-btn-override"
             />
              <style>{`
@@ -86,6 +108,10 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
         {/* 
            IMAGE WRAPPER (.hero-image)
            z-index: 5 
+           
+           НАСТРОЙКИ РАЗМЕРА КОНТЕЙНЕРА (Desktop):
+           - min-[1000px]:w-2/5  -> Ширина контейнера (сейчас 40%). Поменяйте на w-1/2 для 50%.
+           - min-[1000px]:h-[90vh] -> Высота контейнера.
         */}
         <div className="
           hero-image
@@ -96,16 +122,32 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
           
           min-[1000px]:absolute 
           min-[1000px]:bottom-0 
-          min-[1000px]:right-0 
-          min-[1000px]:w-2/5
-          min-[1000px]:h-[90vh] 
+          
+          /* 
+             ВОТ ЗДЕСЬ ДВИГАЕМ ВЛЕВО-ВПРАВО:
+             right-0        = прижато к правому краю
+             right-[50px]   = сдвинуть влево (ближе к тексту)
+             right-[-50px]  = сдвинуть вправо (уйдет за экран)
+          */
+          min-[1000px]:right-[-35] 
+          
+          min-[1000px]:w-1/2
+          min-[1000px]:h-[100vh] 
           min-[1000px]:mt-0
           min-[1000px]:z-[5]
           pointer-events-none
         ">
+           {/* 
+             САМА КАРТИНКА:
+             - h-[50vh] -> Высота на мобильных (50% экрана). Меняйте это число.
+             - min-[1000px]:h-full -> На ПК занимает всю высоту контейнера (настраивать контейнер выше).
+           */}
            <img 
             src="https://raw.githubusercontent.com/pobedaavr-sys/is-odniki_sait_viki/main/figma/dlya_heroy_Vika.png"
             alt="Виктория Мельчакова"
+            // @ts-ignore - fetchPriority is a valid HTML attribute but React types might be outdated
+            fetchPriority="high"
+            loading="eager"
             className="
                object-contain drop-shadow-2xl
                h-[50vh] 

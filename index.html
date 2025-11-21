@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Помогаю выстроить карьеру, найти работу и вырасти в доходе — карьерный консультант Виктория Мельчакова</title>
     <meta name="description" content="Индивидуальные карьерные консультации: поиск работы с ростом дохода, смена профессии, выход из карьерного тупика, подготовка к собеседованию и переговоры о повышении. 12 лет опыта в HR и руководстве командами." />
+    
+    <!-- PRELOAD IMAGES: Начинаем загружать тяжелые картинки первого экрана сразу же -->
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/pobedaavr-sys/is-odniki_sait_viki/main/figma/heroy_podlogka.png">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/pobedaavr-sys/is-odniki_sait_viki/main/figma/dlya_heroy_Vika.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -47,18 +52,19 @@
     <style>
       html {
         scroll-behavior: smooth;
+        scroll-padding-top: 100px;
       }
       body {
         color: #222222;
         -webkit-font-smoothing: antialiased;
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
   }
 }

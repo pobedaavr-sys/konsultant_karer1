@@ -4,23 +4,36 @@ import { PHONE_HREF } from '../../constants';
 interface ButtonProps {
   text: string;
   className?: string;
-  onDesktopClick: () => void;
+  onDesktopClick?: () => void;
   fullWidth?: boolean;
+  href?: string;
+  onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ text, className = "", onDesktopClick, fullWidth = false }) => {
+const Button: React.FC<ButtonProps> = ({ 
+  text, 
+  className = "", 
+  onDesktopClick, 
+  fullWidth = false, 
+  href = PHONE_HREF,
+  onClick
+}) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Check if desktop
-    if (window.matchMedia("(min-width: 1024px)").matches) {
+    if (onClick) {
+      onClick();
+    }
+
+    // Check if desktop and if a specific desktop handler is provided
+    if (onDesktopClick && window.matchMedia("(min-width: 1024px)").matches) {
       e.preventDefault();
       onDesktopClick();
     }
-    // On mobile, it acts as a normal link to tel:
+    // Otherwise, default behavior (navigation or tel:) will occur
   };
 
   return (
     <a
-      href={PHONE_HREF}
+      href={href}
       onClick={handleClick}
       className={`
         js-consultation-btn inline-flex items-center justify-center

@@ -37,6 +37,16 @@ const Requests: React.FC<RequestsProps> = ({ openModal }) => {
     );
   };
 
+  const handleScrollToCTA = () => {
+    const element = document.getElementById('cta-section');
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="requests" className="py-16 md:py-24 bg-bgSectionAlt overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-4 lg:px-6">
@@ -104,7 +114,12 @@ const Requests: React.FC<RequestsProps> = ({ openModal }) => {
         </div>
 
         <div className="mt-12 text-center">
-          <Button text="ЗАПИСАТЬСЯ" onDesktopClick={openModal} className="!uppercase px-16" />
+          <Button 
+            text="ЗАПИСАТЬСЯ" 
+            href="#cta-section" 
+            onClick={handleScrollToCTA}
+            className="!uppercase px-16" 
+          />
         </div>
       </div>
     </section>
