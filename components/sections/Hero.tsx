@@ -129,7 +129,7 @@ const Hero: React.FC<HeroProps> = ({ openModal }) => {
              right-[50px]   = сдвинуть влево (ближе к тексту)
              right-[-50px]  = сдвинуть вправо (уйдет за экран)
           */
-          min-[1000px]:right-[-35] 
+          min-[1000px]:right-[-35px] 
           
           min-[1000px]:w-1/2
           min-[1000px]:h-[100vh] 
