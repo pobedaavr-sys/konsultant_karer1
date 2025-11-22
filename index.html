@@ -17,8 +17,8 @@
   <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
   
-  <!-- Lucide Icons (UMD) -->
-  <script src="https://unpkg.com/lucide-react@0.292.0/dist/umd/lucide-react.min.js"></script>
+  <!-- Lucide Icons (UMD) - Stable version 0.263.1 -->
+  <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
 
   <!-- Babel for JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,9 +90,8 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
     
-    // Проверка загрузки библиотек и назначение правильной глобальной переменной
-    // В версии UMD 0.292.0 переменная называется 'lucide'
-    const lucide = window.lucide || window.lucideReact;
+    // Используем window.lucideReact, так как UMD сборка lucide-react экспортирует именно эту переменную
+    const lucide = window.lucideReact;
 
     if (!lucide) {
       console.error("Lucide Icons library failed to load. Please check your connection or CDN availability.");
@@ -587,7 +586,7 @@
               flex justify-center items-end
               min-[1000px]:absolute 
               min-[1000px]:bottom-0 
-              min-[1000px]:right-[-35] 
+              min-[1000px]:right-0
               min-[1000px]:w-1/2
               min-[1000px]:h-[100vh] 
               min-[1000px]:mt-0
