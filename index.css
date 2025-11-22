@@ -1,9 +1,3 @@
-/* 
-   Директивы @tailwind удалены, так как используется CDN версия в index.html 
-   для гарантированной работы в режиме Preview и на GitHub Pages без сложной настройки PostCSS.
-*/
-
-/* Standard CSS overrides */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
